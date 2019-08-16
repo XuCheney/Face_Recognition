@@ -3,27 +3,22 @@
 #  author:cheney<XZCheney@gmail.com>
 # 人脸识别
 
+import os
+import sys
 import cv2
 import dlib
-
-from PyQt5.QtCore import QTimer, QThread, pyqtSignal, QRegExp, Qt
-from PyQt5.QtGui import QImage, QPixmap, QIcon, QTextCursor, QRegExpValidator
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox,QWidget
-from PyQt5.uic import loadUi
-
-import os
+import queue
 import logging
 import logging.config
-import sys
 import threading
-import queue
 import numpy as np
 import pandas as pd
-import multiprocessing
-import winsound
-
-from configparser import ConfigParser
 from datetime import datetime
+
+from PyQt5.QtCore import QTimer, pyqtSignal, Qt
+from PyQt5.QtGui import QImage, QPixmap, QIcon, QTextCursor
+from PyQt5.QtWidgets import QApplication,QWidget
+from PyQt5.uic import loadUi
 
 
 class UI_face_reco(QWidget):
@@ -206,7 +201,6 @@ class UI_face_reco(QWidget):
         if self.isDebugMode:
             self.confidenceThreshold = self.SpinBox_Threshold.value()
             self.logQueue.put('当前置信度阈值为{}！'.format(self.confidenceThreshold))
-
 
     # 系统日志服务常驻，接收并处理系统日志
     def receiveLog(self):
